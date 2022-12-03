@@ -1,82 +1,187 @@
 import React from 'react';
 import '../css/navbar.css';
 import {useState,useRef} from 'react';
-
-
+// import { Row, Modal, Button, Form, Col } from "react-bootstrap";
+import ModalpopupFunc from "./modalPopup.js";
 
 const NavbarPage = () =>{  
   const dragItem = useRef();
   const dragOverItem = useRef();
-  const [selectOption, setOption] = useState();
-  const [jsonData, setJSON] = useState([]);
-  const [list, setList] = useState(['Item 1','Item 2','Item 3','Item 4','Item 5','Item 6']);
-
-  fetch('https://jsonplaceholder.typicode.com/users?userId=1')
-  .then((response) => response.json())
-  .then((json) => setJSON(json));
   
+  const [jsonData, setJSON] = useState([
+    {
+        "id": "58",
+        "name": "Mark Hill",
+        "designation": "Cheif Executive Officer",
+        "team": "Product",
+        "manager": null,
+        "img": "https://i.imgur.com/uk87y7L.jpg",
+        "short": "CEO"
+    },
+    {
+        "id": "59",
+        "name": "Joe Linux",
+        "designation": "Cheif Technology Officer",
+        "team": "Development & IT",
+        "manager": "58",
+        "img": "https://i.imgur.com/I8N6wle.gif",
+        "short": "CTO"
+    },
+    {
+        "id": "60",
+        "name": "Linda May",
+        "designation": "Cheif Bussiness Officer",
+        "team": "Bussiness Flow",
+        "manager": "58",
+        "img": "https://i.imgur.com/Id57NSW.jpg",
+        "short": "CBO"
+    },
+    {
+        "id": "61",
+        "name": "John Green",
+        "designation": "Cheif Accounting Officer",
+        "team": "Finance",
+        "manager": "58",
+        "img": "https://i.imgur.com/NRYrB0l.jpeg",
+        "short": "CAO"
+    },
+    {
+        "id": "62",
+        "name": "Ron Blomquist",
+        "designation": "Cheif Information Officer",
+        "team": "Development & IT",
+        "manager": "59",
+        "img": "https://i.imgur.com/Xdx7Ptn.jpeg",
+        "short": "CIO"
+    },
+    {
+        "id": "63",
+        "name": "Michael Rubin",
+        "designation": "Cheif Innovative Officer",
+        "team": "Development & IT",
+        "manager": "59",
+        "img": "https://i.imgur.com/eX7uYfG.jpeg",
+        "short": "CIO"
+    },
+    {
+        "id": "64",
+        "name": "Allice Lopez",
+        "designation": "Cheif Communication Officer",
+        "team": "Bussiness Flow",
+        "manager": "60",
+        "img": "https://i.imgur.com/waxFbz6.jpg",
+        "short": "CCO"
+    },
+    {
+        "id": "65",
+        "name": "Marry Johnson",
+        "designation": "Cheif Brand Officer",
+        "team": "Bussiness Flow",
+        "manager": "60",
+        "img": "https://i.imgur.com/Zi7qqQA.jpg",
+        "short": "CBO"
+    },
+    {
+        "id": "66",
+        "name": "Kirk Douglas",
+        "designation": "Cheif Bussiness Officer",
+        "team": "Bussiness Flow",
+        "manager": "60",
+        "img": "https://i.imgur.com/0hhtbTn.jpeg",
+        "short": "CBO"
+    },
+    {
+        "id": "67",
+        "name": "Erica Reel",
+        "designation": "Cheif Bussiness Officer",
+        "team": "Bussiness Flow",
+        "manager": "60",
+        "img": "https://i.imgur.com/I9XFqdd.jpg",
+        "short": "CBO"
+    
+}]);
+
+  // if(!jsonData.length){
+  //   fetch('https://jsonplaceholder.typicode.com/users?userId=1')
+  //   .then((response) => response.json())
+  //   .then((json) => setJSON(json));
+    
+  // }
+  const [dupData, setDupdata] = useState([...jsonData]);
   const dragStart = (e, position) => {
     dragItem.current = position;
-    console.log(e.target.innerHTML);
   };
  
   const dragEnter = (e, position) => {
-    dragOverItem.current = position;
-    console.log(e.target.innerHTML);
+    dragOverItem.current = position;    
   };
- 
   const drop = (e) => {
-    const copyListItems = [...list];
+    const copyListItems = [...jsonData];
     const dragItemContent = copyListItems[dragItem.current];
-    copyListItems.splice(dragItem.current, 1);
-    copyListItems.splice(dragOverItem.current, 0, dragItemContent);
-    dragItem.current = null;
-    dragOverItem.current = null;
-    setList(copyListItems);
+    copyListItems.splice(dragItem.current, 1);    
+    copyListItems.splice(dragOverItem.current, 0, dragItemContent);    
+    setJSON([...copyListItems]);    
   };
   
+  const nameFilterFunc = (e) => {
+    if(e.target.value.length){
+      const filteredData = jsonData.filter(
+        ({ name }) =>
+        name.toLowerCase().includes(e.target.value.toLowerCase())
+        );
+        setDupdata([...filteredData]);      
+    }else{      
+      setDupdata([...jsonData]);      
+    }
+  };
+  
+  var nameModal = '';
+  const [name, setName] = useState('');
+  var imgModal = '';
+  var designModal = '';
+  const [state, setState] = useState(false);
+  const getIdFunc = (data) => {    
+    nameModal = data.name;
+    setState(true);    
+  }
+  const showNameDetails = (data) => {    
+    setJSON([data]);
+  }
+
   return(
-    <div className="row container">                      
-      <h1>User List</h1>
-      <p>Filter based on user name</p>
-      <div>
-        <select value={selectOption} id="getoption" onChange={(e) => GetIdFunc(e)}>
-        {/* <select value={selectOption} onChange={setOption(true)}> */}
-        {/* <select value={setOption(true)} onChange={setOpt}> */}
-          {jsonData && jsonData.length >0 && jsonData.map((jsonDt,index) =>(
-            <option value={index} key={index}>{jsonDt.name}</option>
-          )          
-          )}
-        </select>
-        <button>GO{selectOption}</button>
+    <>
+      <div className="col leftMenu">
+        <p>Filter based on user name</p>
+        <input type="text" placeholder="Search Employee" onChange={(e) => nameFilterFunc(e)}></input>
+        <button onClick={() =>getIdFunc(1)}>Go</button>
+          {dupData && dupData.length && dupData.map((obj,index) =>(
+            <div className="asideData" key={obj['id']} onClick={() => showNameDetails(obj)}>
+              <img className="leftimgSrc" src={obj['img']} style={{"width":"20%","height":"20%"}} />
+              <p>{obj['name']}</p>
+              <i>{obj['short']}-{obj['team']}</i>
+            </div>
+          ))}
       </div>
-      <div></div>
+      <h1>User List</h1>      
+      <div className="row mainRow">                            
         {jsonData && jsonData.length > 0 && jsonData.map((jsonObj, index) => (
           <div className="col-4" key={jsonObj.id} draggable onDragStart={(e) => dragStart(e, index)}
           onDragEnter={(e) => dragEnter(e, index)}
-          onDragEnd={drop}>
-                  <div className="card" id={index}>
-                    <div className="card-body">
-                      <h5 className="card-title" style={{cursor:true}} onClick={() => GetIdFunc(index)}>Card {jsonObj.name}</h5>
-                      <h6 className="card-subtitle mb-2 text-muted">Drag and Drop</h6>
-                      {/* <p className="card-text">Handpicked illustrations for any mission</p>                               */}
+          onDragEnd={drop} onClick={() => getIdFunc(jsonObj)}>
+                  <div className="card" id={jsonObj.id}>
+                    <div className="card-body">       {name}
+                      <img className="imgSrc" src={jsonObj.img} />               
+                      <h5 className="card-title"> {jsonObj.name}</h5>
+                      <p className="card-title"> {jsonObj.designation}</p>                      
                     </div>
                 </div>
           </div>
           ))}
-    </div>
+      </div>
+      { state ? <ModalpopupFunc nameModal={nameModal}/> : '' }
+      {/* { state ? <h1>Saranya</h1> : '' } */}
+    </>
   );
 }
-
-function GetIdFunc(id){
-  // document.getElementById('getoption').value;
-  console.log(id.target.value);  
-  var id = id.target.value;  
-  // fetch('https://jsonplaceholder.typicode.com/users?userId='+id)
-  // .then((response) => response.json())
-  // .then((json) => setJSON(json));
-}
-
-
 
 export default NavbarPage;
