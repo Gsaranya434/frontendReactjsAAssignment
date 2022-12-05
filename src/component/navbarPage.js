@@ -135,14 +135,18 @@ const NavbarPage = () =>{
     }
   };
   
-  var nameModal = '';
-  const [name, setName] = useState('');
-  var imgModal = '';
-  var designModal = '';
-  const [state, setState] = useState(false);
+  
+  const [name, setName] = useState('');  
+  const [img, setImage] = useState('');  
+  const [status, setStatus] = useState(false);
+  const [team, setTeam] = useState('');
+  const [designation, setDesignation] = useState('');
   const getIdFunc = (data) => {    
-    nameModal = data.name;
-    setState(true);    
+    setName(data.name);    
+    setImage(data.img);    
+    setTeam(data.team);    
+    setDesignation(data.designation);
+    setStatus(true);
   }
   const showNameDetails = (data) => {    
     setJSON([data]);
@@ -157,8 +161,8 @@ const NavbarPage = () =>{
           {dupData && dupData.length && dupData.map((obj,index) =>(
             <div className="asideData" key={obj['id']} onClick={() => showNameDetails(obj)}>
               <img className="leftimgSrc" src={obj['img']} style={{"width":"20%","height":"20%"}} />
-              <p>{obj['name']}</p>
-              <i>{obj['short']}-{obj['team']}</i>
+              <p>{obj['name']} {obj['short']}-{obj['team']}</p>
+              {/* <i>{obj['short']}-{obj['team']}</i> */}
             </div>
           ))}
       </div>
@@ -169,7 +173,7 @@ const NavbarPage = () =>{
           onDragEnter={(e) => dragEnter(e, index)}
           onDragEnd={drop} onClick={() => getIdFunc(jsonObj)}>
                   <div className="card" id={jsonObj.id}>
-                    <div className="card-body">       {name}
+                    <div className="card-body">
                       <img className="imgSrc" src={jsonObj.img} />               
                       <h5 className="card-title"> {jsonObj.name}</h5>
                       <p className="card-title"> {jsonObj.designation}</p>                      
@@ -178,8 +182,7 @@ const NavbarPage = () =>{
           </div>
           ))}
       </div>
-      { state ? <ModalpopupFunc nameModal={nameModal}/> : '' }
-      {/* { state ? <h1>Saranya</h1> : '' } */}
+      { status ? <ModalpopupFunc nameModal={name} imgModal={img} teamModal={team} desigModal={designation} state={setStatus}/> : '' }      
     </>
   );
 }

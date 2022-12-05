@@ -51,6 +51,15 @@ ul {
     box-shadow: rgb(170 170 170) 0px 0px 0px 5px;
     pointer-events: none;
 }
+.modalImg{
+    margin: 0px auto;
+    max-width: 60px;
+    width: 60px;
+    height: 60px;
+    /* border-radius: 50%; */
+    box-shadow: rgb(170 170 170) 0px 0px 0px 5px;
+    pointer-events: none;
+}
 
 .leftimgSrc{
     margin: 0px auto;
