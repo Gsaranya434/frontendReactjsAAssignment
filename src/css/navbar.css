@@ -6,12 +6,32 @@ ul li {
     display: inline-block;
     list-style: none;
     padding: .36em 0.9375em;
+    /* float: right; */
+    position: relative;
+}
+li {
+    display: inline-block;
+    list-style: none;
+    padding: .36em 0.9375em;
 }
 
 ul {
     margin: 0;
     display: inline;
     padding-right: .15em;
+}
+.gridCol{
+    justify-items: stretch;
+    /* display: grid;
+    height: 100px;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 100px; */
+    /* display: grid; */
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 10px;
+}
+.lastRow{
+    padding-top: 200px;
 }
 
 .card:hover{
@@ -22,7 +42,22 @@ ul {
     box-shadow: rgb(118 177 225) 0px 0px 0px 3px inset, rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
     cursor: pointer;
 }
-
+/* .mainRow:hover{        
+    background: rgb(181, 213, 239);
+    color: rgb(0, 42, 80);
+    transition: all 0.15s ease 0s;
+    transform: translateY(-5px);
+    box-shadow: rgb(118 177 225) 0px 0px 0px 3px inset, rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
+    cursor: pointer;
+} */
+/* .secondLine:hover{
+    background: rgb(181, 213, 239);
+    color: rgb(0, 42, 80);
+    transition: all 0.15s ease 0s;
+    transform: translateY(-5px);
+    box-shadow: rgb(118 177 225) 0px 0px 0px 3px inset, rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
+    cursor: pointer;
+} */
 .leftMenu{
     position:fixed;
     height:100px;
@@ -31,8 +66,27 @@ ul {
 }
 
 .mainRow{
-    padding-left:250px;
+    padding-left:200px;
+    /* display: -ms-grid;     */
 }
+* {
+    box-sizing: border-box;
+}
+.flex {
+    display: flex;
+    /* grid-template-columns: auto auto auto;
+    background-color: #2196F3;
+    padding: 210px; */
+  }
+  
+  .grid-item {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.8);
+    /* padding: 20px; */
+    /* font-size: 30px; */
+    text-align: center;
+  }
+  
 .asideData:hover{
     cursor: pointer;
     background: rgb(181, 213, 239);
