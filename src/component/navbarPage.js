@@ -305,6 +305,7 @@ const NavbarPage = () =>{
     setStatus(true);
   }
   const showNameDetails = (typedata) => {
+    // setDupdata([...typedata]);      
     setJSON([...typedata]);    
   }
 
@@ -316,7 +317,7 @@ const NavbarPage = () =>{
           <button>Go</button>
         </div>
         <br></br>
-        {/* <div>
+        <div>
           {jsonData && jsonData.length && jsonData.map((obj,index) =>(
             <div className="">
               <div className='asideData' key={obj['id']} onClick={() => showNameDetails([obj])}>
@@ -344,14 +345,14 @@ const NavbarPage = () =>{
               {!obj.childList.length?'':''}
             </div>
           ))}          
-        </div> */}
-        {dupData && dupData.length && dupData.map((obj,index) =>(
+        </div>
+        {/* {dupData && dupData.length && dupData.map((obj,index) =>(
             <div className="asideData" key={obj['id']} onClick={() => showNameDetails([obj])}>
               <img className="leftimgSrc" src={obj['img']} style={{"width":"20%","height":"20%"}} />
               <p>{obj['name']}   {obj['short']}-{obj['team']}</p>
-              {/* <i>{obj['short']}-{obj['team']}</i> */}
+            <i>{obj['short']}-{obj['team']}</i> 
             </div>
-          ))}
+          ))} */}
       </div>
       <h1>User List</h1>      
       <div className="mainRow container">             
