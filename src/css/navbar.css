@@ -60,8 +60,10 @@ ul {
 } */
 .leftMenu{
     position:fixed;
-    height:100px;
-    width:auto;
+    height:100px;    
+    width:300px;
+    overflow-y: auto;
+    height: 700px;
     top:50px;
 }
 

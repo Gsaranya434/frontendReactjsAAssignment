@@ -224,8 +224,7 @@ const NavbarPage = () =>{
   
   var count =0;
   const drop = (e,data,position) => {
-    count = count + 1;
-    debugger
+    count = count + 1;    
     const copyListItems = [...jsonData];  
     if(position.length===2 && count === 1){    
       copyListItems[0].childList.splice(dragItem.current[1],1);
@@ -262,6 +261,34 @@ const NavbarPage = () =>{
     }else{      
       setDupdata([...respData]);      
     }
+
+    if(e.target.value.length){      
+      const filteredData = jsonData.filter(
+        ({ name }) =>
+        name.toLowerCase().includes(e.target.value.toLowerCase())
+        );
+        if(filteredData.length>0){
+          setJSON([...filteredData]);          
+        }else{
+          const filteredData = jsonData[0].childList.filter(
+            ({ name }) =>
+            name.toLowerCase().includes(e.target.value.toLowerCase())
+            );
+            if(filteredData.length>0){
+              setJSON([...filteredData]);
+            }else{
+              const filteredData = jsonData[0].childList[0].childList.filter(
+                ({ name }) =>
+                name.toLowerCase().includes(e.target.value.toLowerCase())
+                );
+                if(filteredData.length>0){
+                  setJSON([...filteredData]);
+                }
+            }          
+        }        
+    }else{           
+      setJSON([...jsonData]);      
+    }
   };
   
   
@@ -277,18 +304,49 @@ const NavbarPage = () =>{
     setDesignation(data.designation);
     setStatus(true);
   }
-  const showNameDetails = (data) => {    
-    setJSON([data]);
+  const showNameDetails = (typedata) => {
+    setJSON([...typedata]);    
   }
 
   return(
     <>
-      <div className="col leftMenu">
-        <p>Filter based on user name</p>
-        <input type="text" placeholder="Search Employee" onChange={(e) => nameFilterFunc(e)}></input>
-        <button onClick={() =>getIdFunc(1)}>Go</button>
-          {dupData && dupData.length && dupData.map((obj,index) =>(
-            <div className="asideData" key={obj['id']} onClick={() => showNameDetails(obj)}>
+      <div className="col leftMenu">        
+        <div>
+          <input type="text" placeholder="Search Employee" onChange={(e) => nameFilterFunc(e)}></input>
+          <button>Go</button>
+        </div>
+        <br></br>
+        {/* <div>
+          {jsonData && jsonData.length && jsonData.map((obj,index) =>(
+            <div className="">
+              <div className='asideData' key={obj['id']} onClick={() => showNameDetails([obj])}>
+                <img className="leftimgSrc" src={obj['img']} style={{"width":"20%","height":"20%"}} />
+                <p>{obj['name']}   {obj['short']}-{obj['team']}</p>     
+              </div>
+              <br></br>         
+              {obj && obj.childList.length && obj.childList.map((list,index) => (
+                <div>
+                  <div className='asideData' key={list['id']} onClick={() => showNameDetails([list])}>               
+                  <img className="leftimgSrc" src={list['img']} style={{"width":"20%","height":"20%"}} />
+                  <p>{list['name']}   {list['short']}-{list['team']}</p>
+                  </div>
+                  {list && list.childList.length && list.childList.map((data,index) =>(
+                    <div>
+                      <div className='asideData' key={data['id']} onClick={() => showNameDetails([data])}>
+                        <img className="leftimgSrc" src={data['img']} style={{"width":"20%","height":"20%"}} />
+                        <p>{data['name']}   {data['short']}-{data['team']}</p>
+                      </div>
+                    </div>
+                  ))}
+                  {!list.childList.length?'':''}
+                  </div>
+              ))}
+              {!obj.childList.length?'':''}
+            </div>
+          ))}          
+        </div> */}
+        {dupData && dupData.length && dupData.map((obj,index) =>(
+            <div className="asideData" key={obj['id']} onClick={() => showNameDetails([obj])}>
               <img className="leftimgSrc" src={obj['img']} style={{"width":"20%","height":"20%"}} />
               <p>{obj['name']}   {obj['short']}-{obj['team']}</p>
               {/* <i>{obj['short']}-{obj['team']}</i> */}
@@ -310,7 +368,7 @@ const NavbarPage = () =>{
               </div>
             </div>
           </div>  
-        
+          <br></br>
           <ul className='flex'>
               {jsonObj.childList.length && jsonObj.childList.map((element,index2)=>(            
                 <div className="gridCol" key={element.id} draggable onDragStart={(e) => dragStart(e, [index1,index2])} onDragEnter={(e) => dragEnter(e, [index1,index2])}
@@ -322,9 +380,7 @@ const NavbarPage = () =>{
                       <p className="card-title"> {element.designation}</p>                      
                     </div>
                   </div>
-                  <br></br>
-                  
-                        
+                  <br></br>                                          
                     <li className="">
                       {element.childList.length>0 && element.childList.map((data,index3)=>(
                         <div className="grid-container row" key={data.id} draggable onDragStart={(e) => dragStart(e, [index1,index2,index3])} onDragEnter={(e) => dragEnter(e, [index1,index2,index3])}
@@ -332,8 +388,8 @@ const NavbarPage = () =>{
                           <div className="card" id={data.id} onClick={() => getIdFunc(data)}>
                             <div className="card-body">
                               <img className="imgSrc" src={data.img} />               
-                              {/* <h5 className="card-title"> {data.name}</h5>
-                              <p className="card-title"> {data.designation}</p>                       */}
+                              <h5 className="card-title"> {data.name}</h5>
+                              <p className="card-title"> {data.designation}</p>
                             </div>
                           </div>
                         </div>
