@@ -261,6 +261,7 @@ const NavbarPage = () =>{
     }else{      
       setDupdata([...respData]);      
     }
+    setReset(true);
 
     if(e.target.value.length){      
       const filteredData = jsonData.filter(
@@ -306,8 +307,13 @@ const NavbarPage = () =>{
   }
   const showNameDetails = (typedata) => {
     // setDupdata([...typedata]);      
+    setReset(true);
     setJSON([...typedata]);    
   }
+  function reloadFunc(){
+    window.location.reload();
+  }
+  const [reset,setReset] = useState(false);
 
   return(
     <>
@@ -316,6 +322,7 @@ const NavbarPage = () =>{
           <input type="text" placeholder="Search Employee" onChange={(e) => nameFilterFunc(e)}></input>
           <button>Go</button>
         </div>
+        
         <br></br>
         <div>
           {jsonData && jsonData.length && jsonData.map((obj,index) =>(
@@ -355,6 +362,11 @@ const NavbarPage = () =>{
           ))} */}
       </div>
       <h1>User List</h1>      
+      {reset?
+        <div>        
+          <button onClick={() => reloadFunc()}>Reset</button>
+        </div>:''
+        }
       <div className="mainRow container">             
         {jsonData && jsonData.length > 0 && jsonData.map((jsonObj, index1) => (
         <li>
