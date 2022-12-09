@@ -33,6 +33,16 @@ ul {
 .lastRow{
     padding-top: 200px;
 }
+.coll{
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 20px;
+    background: var(--black);
+}
 
 .card:hover{
     background: rgb(181, 213, 239);

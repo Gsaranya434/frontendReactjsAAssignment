@@ -321,8 +321,7 @@ const NavbarPage = () =>{
         <div>
           <input type="text" placeholder="Search Employee" onChange={(e) => nameFilterFunc(e)}></input>
           <button>Go</button>
-        </div>
-        
+        </div>        
         <br></br>
         <div>
           {jsonData && jsonData.length && jsonData.map((obj,index) =>(
@@ -351,7 +350,10 @@ const NavbarPage = () =>{
               ))}
               {!obj.childList.length?'':''}
             </div>
-          ))}          
+          ))}
+          <br></br>          
+          <br></br>          
+          <br></br>          
         </div>
         {/* {dupData && dupData.length && dupData.map((obj,index) =>(
             <div className="asideData" key={obj['id']} onClick={() => showNameDetails([obj])}>
@@ -394,7 +396,7 @@ const NavbarPage = () =>{
                     </div>
                   </div>
                   <br></br>                                          
-                    <li className="">
+                    <li className="flex">
                       {element.childList.length>0 && element.childList.map((data,index3)=>(
                         <div className="grid-container row" key={data.id} draggable onDragStart={(e) => dragStart(e, [index1,index2,index3])} onDragEnter={(e) => dragEnter(e, [index1,index2,index3])}
                         onDragEnd={(e) =>drop(e,data,[index1,index2,index3])}>
