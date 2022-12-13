@@ -33,14 +33,19 @@ ul {
 .lastRow{
     padding-top: 200px;
 }
-.coll{
-    content: "";
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 20px;
+.grid-container{
+    /* position: fixed; */
+    width: 140px !important;
+    float:left;
+    margin: 0px;
+}
+.coll{    
+    position: fixed;
+    /* top: 100%; */
+    /* left: 50%; */
+    /* transform: translateX(-50%); */
+    /* width: 2px; */
+    /* height: 20px; */
     background: var(--black);
 }
 
@@ -97,6 +102,10 @@ ul {
     /* padding: 20px; */
     /* font-size: 30px; */
     text-align: center;
+  }
+  .asideData img{    
+    max-width:100% !important;
+    height: 50px;    
   }
   
 .asideData:hover{

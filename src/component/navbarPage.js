@@ -325,22 +325,22 @@ const NavbarPage = () =>{
         <br></br>
         <div>
           {jsonData && jsonData.length && jsonData.map((obj,index) =>(
-            <div className="">
+            <div className="allAside">
               <div className='asideData' key={obj['id']} onClick={() => showNameDetails([obj])}>
-                <img className="leftimgSrc" src={obj['img']} style={{"width":"20%","height":"20%"}} />
+                <img className="leftimgSrc" src={obj['img']} />
                 <p>{obj['name']}   {obj['short']}-{obj['team']}</p>     
               </div>
               <br></br>         
               {obj && obj.childList.length && obj.childList.map((list,index) => (
                 <div>
                   <div className='asideData' key={list['id']} onClick={() => showNameDetails([list])}>               
-                  <img className="leftimgSrc" src={list['img']} style={{"width":"20%","height":"20%"}} />
+                  <img className="leftimgSrc" src={list['img']} />
                   <p>{list['name']}   {list['short']}-{list['team']}</p>
                   </div>
                   {list && list.childList.length && list.childList.map((data,index) =>(
                     <div>
                       <div className='asideData' key={data['id']} onClick={() => showNameDetails([data])}>
-                        <img className="leftimgSrc" src={data['img']} style={{"width":"20%","height":"20%"}} />
+                        <img className="leftimgSrc" src={data['img']} />
                         <p>{data['name']}   {data['short']}-{data['team']}</p>
                       </div>
                     </div>
