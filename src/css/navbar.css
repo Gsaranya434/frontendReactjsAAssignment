@@ -86,8 +86,8 @@ ul {
     top:50px;
 }
 
-.mainRow{
-    padding-left:200px;
+.root{
+    padding-left:400px;
     /* display: -ms-grid;     */
 }
 * {
