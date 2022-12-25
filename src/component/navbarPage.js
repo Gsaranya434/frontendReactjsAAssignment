@@ -198,7 +198,7 @@ const [mainJSON, setmainJSON] = useState([
       "short": "CBO"
   }
 ]);
-var jsonDatadup = [...mainJSON];
+const [jsonDatadup,setjsonDatadup] = useState([...mainJSON]);
 
   const [respData, setrespJSON] = useState();
 
@@ -258,9 +258,17 @@ var jsonDatadup = [...mainJSON];
     setStatus(true);
   }
   const showNameDetails = (typedata) => {
-    // setDupdata([...typedata]);      
-    setReset(true);
-    // setJSON([...typedata]);    
+    var subList = [];
+    subList.push(typedata);
+    mainJSON.map((data,ind)=>{
+      console.log(Number(typedata.id) <= Number(data.id) ,typedata.id===data.manager);
+      if(typedata.id===data.manager){
+        subList.push(data);
+        // console.log(data,typedata);
+      }
+    })
+    setjsonDatadup([...subList]);    
+    setReset(true);     
   }
   function reloadFunc(){    
     // setJSONdup(Object.values(jsonData));
@@ -310,8 +318,10 @@ var jsonDatadup = [...mainJSON];
 
   }
   const comFunc=(data)=>{
-    jsonDatadup = data;
-    console.log(jsonDatadup);    
+    console.log(data);
+    // setjsonDatadup(data);
+    return true;    
+    return true;
   }
   // debugger;
   
@@ -326,7 +336,7 @@ var jsonDatadup = [...mainJSON];
         <div>          
           {mainJSON.length && mainJSON.map((obj,index) =>(
             <div className="allAside" key={index}>
-              <div className='asideData' key={obj.id} onClick={() => showNameDetails([obj])}>
+              <div className='asideData' key={obj.id} onClick={() => showNameDetails(obj)}>
                 <img className="leftimgSrc" src={obj.img} />                
                 <p>{obj.name}   {obj.short}-{obj.team}</p>     
               </div>
@@ -336,7 +346,7 @@ var jsonDatadup = [...mainJSON];
           <br></br>          
           <br></br>          
           <br></br>          
-        </div>        
+        </div>
       </div>
       <h1>User List</h1>      
       {reset?
@@ -354,10 +364,10 @@ var jsonDatadup = [...mainJSON];
                   <img className="imgSrc" src={obj.img} />
                   <h5 className="card-title"> {obj.name}</h5>
                   <p className="card-title"> {obj.designation}</p> 
+                  {/* <Child onLoad={comFunc(obj.id)}/> */}
+                  <Child datadup = {mainJSON} json={comFunc} getIdFunc={getIdFunc} dragStart={dragStart} dragEnter={dragEnter} drop={drop} mainId={obj.id} />
                 </div>
               </div>  
-              <Child jsonDatadup = {jsonDatadup} json={comFunc} mainId={obj.id} />
-              {/* <Child onLoad={mainIdFunc()}/> */}
             </li>
           </ul>
         ))}  
