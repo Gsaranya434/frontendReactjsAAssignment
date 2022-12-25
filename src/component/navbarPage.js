@@ -214,7 +214,7 @@ const [jsonDatadup,setjsonDatadup] = useState([...mainJSON]);
   var count =0;
   const drop = (e,data,position) => {
     count = count + 1;    
-    const copyListItems = [...jsonData];  
+    const copyListItems = [...jsonDatadup];  
     if(position.length===2 && count === 1){    
       copyListItems[0].childList.splice(dragItem.current[1],1);
       copyListItems[0].childList[dragOverItem.current[0]].childList.push(data);      
@@ -271,57 +271,31 @@ const [jsonDatadup,setjsonDatadup] = useState([...mainJSON]);
     setReset(true);     
   }
   function reloadFunc(){    
-    // setJSONdup(Object.values(jsonData));
-    window.location.reload();
+    setjsonDatadup([...mainJSON]);    
   }
   const [reset,setReset] = useState(false);
   const [previndex,setIndex] = useState();
   var mainId = null;
   var count = 0;
   
-  const mainIdFunc=()=>{    
-    // mainId = obj.id;    
+  const mainIdFunc=()=>{        
     var newList = [];
     var asignNum = null;
     if(true){
-      var findData = mainJSON.find((res,num)=>{
-        // debugger
+      var findData = mainJSON.find((res,num)=>{        
         if(res.manager && asignNum && asignNum===res.manager){
           count=count+1;          
-          bindHTML.current = `<h1>saranya</h1>`;
-          // debugger
-          // jsonDatadup.splice(index,1);
-          // mainIdFunc();
-          // console.log(res);
+          bindHTML.current = `<h1>saranya</h1>`;          
           return res;
         }else{          
-          asignNum = res.id;
-          // debugger 
-          // console.log('count '+count);
-        }
-        // newList.push(res);
-      });
-      // console.log(count);
+          asignNum = res.id;          
+        }     
+      });      
     }
-    console.log(findData);
-    // debugger
-    // setJSONdup(findData);
-    // debugger
-    
-    // setJSONdup(obj);
-    
-    // jsonDatadup.map((res,index)=>{      
-    //   console.log(count);
-    // })
-    console.log(findData);
-
-
   }
   const comFunc=(data)=>{
-    console.log(data);
-    // setjsonDatadup(data);
-    return true;    
-    return true;
+    console.log(data);    
+    return true;        
   }
   // debugger;
   

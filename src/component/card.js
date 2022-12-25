@@ -2,8 +2,7 @@ import React from 'react';
 import {useState,useRef} from 'react';
 
 
-function Child(props){
-  // debugger
+function Child(props){  
   var count = 0;
   var list = [];  
   props.datadup.map((res,num)=>{    
@@ -12,11 +11,7 @@ function Child(props){
     }
   });
   props.json(list);
-  
-  // list.forEach(element => {
-    // debugger
-  // });
-  // console.log(typeof(list));
+    
   const parentCallback=()=>{ 
     props.json(list);
   }
@@ -24,7 +19,7 @@ function Child(props){
 
 return (
   <>
-  <h1>Child Array length {list.length}</h1>
+  <p>Child Array length {list.length}</p>
   {list.length && list.map((res,ind)=>{
   <ul key={ind} className="grid">
     <li id={res.id}>
