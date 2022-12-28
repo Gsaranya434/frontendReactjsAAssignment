@@ -8,9 +8,18 @@ function Child(props){
   props.datadup.map((res,num)=>{    
     if(res.manager === props.mainId){      
       list.push(res);
+      
+    }else if(res.manager != props.mainId){
+      // console.log(res);
+      // list.push(res);
     }
   });
-  props.json(list);
+
+  if(list.length){
+    props.json(list);
+    console.log(list);
+  }
+  
     
   const parentCallback=()=>{ 
     props.json(list);
@@ -19,20 +28,22 @@ function Child(props){
 
 return (
   <>
-  <p>Child Array length {list.length}</p>
-  {list.length && list.map((res,ind)=>{
-  <ul key={ind} className="grid">
-    <li id={res.id}>
-      <div id={res.id} className="grid card" onClick={() => props.getIdFunc(res)} draggable onDragStart={(e) => props.dragStart(e, ind)} onDragEnter={(e) => props.dragEnter(e, ind)} onDragEnd={(e) => props.drop(e,res,ind)}>
-        <div className="card-body">
-          <img className="imgSrc" src={res.img} />
-          <h5 className="card-title"> {res.name}</h5>
-          <p className="card-title"> {res.designation}</p>
+  <p>Child Array length {list.length}</p>  
+  <div>
+    {list.length && list.map((res,ind)=>{
+    <ul key={ind} className="grid">
+      <li id={res.id}>
+        <div id={res.id} className="grid card" onClick={() => props.getIdFunc(res)} draggable onDragStart={(e) => props.dragStart(e, ind)} onDragEnter={(e) => props.dragEnter(e, ind)} onDragEnd={(e) => props.drop(e,res,ind)}>
+          <div className="card-body">
+            <img className="imgSrc" src={res.img} />
+            <h5 className="card-title"> {res.name}</h5>
+            <p className="card-title"> {res.designation}</p>
+          </div>
         </div>
-      </div>
-    </li>
-  </ul>;
-  })}
+      </li>
+    </ul>;
+    })}
+  </div>
 </>
 )
   return (props.json(list));

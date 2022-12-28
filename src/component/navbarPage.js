@@ -1,7 +1,8 @@
+
+
 import React from 'react';
 import '../css/navbar.css';
 import {useState,useRef} from 'react';
-import $ from 'jquery';
 // import { Row, Modal, Button, Form, Col } from "react-bootstrap";
 import ModalpopupFunc from "./modalPopup.js";
 import Child from "./card.js";
@@ -237,9 +238,14 @@ const [jsonDatadup,setjsonDatadup] = useState([...mainJSON]);
         (data) =>
         data.name.toLowerCase().includes(e.target.value.toLowerCase())        
         );
-        setmainJSON([...filteredData]);                        
+        setjsonDatadup([...filteredData]);                        
       }else{                   
-        setmainJSON([...mainJSON]);                        
+        var data =
+          fetch('https://jsonplaceholder.typicode.com/users?userId=1')
+          .then((response) => response.json())
+          .then((json) => setJSON(json));
+        
+        // set([...mainJSON]);                        
     }
     setReset(true);
   };
@@ -294,6 +300,7 @@ const [jsonDatadup,setjsonDatadup] = useState([...mainJSON]);
     }
   }
   const comFunc=(data)=>{
+    // setjsonDatadup(data);
     console.log(data);    
     return true;        
   }
@@ -328,7 +335,8 @@ const [jsonDatadup,setjsonDatadup] = useState([...mainJSON]);
           <button onClick={() => reloadFunc()}>Reset</button>
         </div>:''
         }
-        {jsonDatadup && jsonDatadup.length?
+
+        { jsonDatadup && jsonDatadup.length ?
       <div className={mainId?"":"root container"} id="mainRow12">
         {jsonDatadup.map((obj,index)=>(           
           <ul key={index}>
@@ -339,7 +347,7 @@ const [jsonDatadup,setjsonDatadup] = useState([...mainJSON]);
                   <h5 className="card-title"> {obj.name}</h5>
                   <p className="card-title"> {obj.designation}</p> 
                   {/* <Child onLoad={comFunc(obj.id)}/> */}
-                  <Child datadup = {mainJSON} json={comFunc} getIdFunc={getIdFunc} dragStart={dragStart} dragEnter={dragEnter} drop={drop} mainId={obj.id} />
+                  <Child datadup = {mainJSON} json={setjsonDatadup} getIdFunc={getIdFunc} dragStart={dragStart} dragEnter={dragEnter} drop={drop} mainId={obj.id} vertical />
                 </div>
               </div>  
             </li>

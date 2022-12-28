@@ -9,17 +9,14 @@ import Navbar from './component/navbarPage';
 
 function App(){
   return (
-    <div className="App">                
-      <div className="row">         
-        <div className="col">
-          <Router>          
-            <Routes>
-                <Route exact path='/' element={<Navbar />} />
-                <Route path='/users' element={<Home/>} />               
-            </Routes>
-          </Router>
-        </div>
-      </div>      
+    <div className="App">                      
+      <Router>          
+        <Routes>
+          {/* <div element={<Navbar />} /> */}
+            <Route exact path='/' element={<Navbar />} />
+            <Route path='/users' element={<Home/>} />               
+        </Routes>
+      </Router>
     </div>
     );
 }
